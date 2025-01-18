@@ -1,8 +1,10 @@
 'use client'
 import avgRating from '@/helper/avgRating';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import ReactStars from 'react-stars';
+import dummyImage from "../../../public/dummyImage.jpg"
 
 function RecipeCard({recipe}) {
     const [avgReviewCount,setAvgReviewCount]=useState(0);
@@ -18,9 +20,14 @@ function RecipeCard({recipe}) {
           className="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transform transition-transform duration-200 hover:scale-105"
           onClick={() => router.push(`/recipe/${recipe._id}`)}
       >
+            
           {/* Placeholder Image */}
           <div className="relative h-48 bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-500 text-lg font-bold">No Image</span>
+            <Image
+                src={'/dummyImage.jpg'}
+                fill={true}
+                alt='food Image'
+            />
           </div>
 
           {/* Recipe Details */}

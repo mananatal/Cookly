@@ -4,11 +4,8 @@ import Logo from '../Logo';
 import { Button } from '../ui/button';
 import { UserButton, useUser } from '@clerk/nextjs';
 import Link from 'next/link';
-import { HomeIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-
-
-
+import { Home, PlusCircle, FileText, Bookmark, HomeIcon } from 'lucide-react';
 import { Squash as Hamburger } from "hamburger-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useClickAway } from "react-use";
@@ -32,24 +29,29 @@ const navItems=[
     }
 ]
 
-const authNavItems=[
+const authNavItems = [
     {
-        title:"Home",
-        path:"/home"
+        title: "Home",
+        path: "/home",
+        Icon: Home, 
     },
     {
-        title:"Create Recipe",
-        path:"/create"
+        title: "Create Recipe",
+        path: "/create",
+        Icon: PlusCircle, 
     },
     {
-        title:"My Recipes",
-        path:"/user-recipes"
+        title: "My Recipes",
+        path: "/user-recipes",
+        Icon: FileText, 
     },
     {
-        title:"Saved Recipes",
-        path:"/saved-recipes"
+        title: "Saved Recipes",
+        path: "/saved-recipes",
+        Icon: Bookmark,
     }
-]
+];
+
 
 
 function Navbar({handleSmoothScroll,authNav}) {
@@ -83,10 +85,10 @@ function Navbar({handleSmoothScroll,authNav}) {
                     }
                      {
                         user && 
-                        <div className='flex gap-2 items-center'>
+                        <div className='flex gap-2 items-center '>
                             <Link href={'/home'}>
                                 <Button 
-                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center">
+                                    className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center  }`}>
                                     <HomeIcon/>
                                     Home
                                 </Button>
@@ -95,7 +97,72 @@ function Navbar({handleSmoothScroll,authNav}) {
                         </div>
                     }
                    
-                      
+                    {
+                        // Mobile side bar
+                        authNav &&
+                        <div
+                            ref={ref}
+                            className="mr-1 md:hidden text-gray-900 relative z-[1000000]"
+                        >
+                            <Hamburger
+                                toggled={isOpen}
+                                size={22}
+                                toggle={setOpen}
+                                color={isOpen ? "#333" : "#444"} 
+                            />
+                           
+                            <AnimatePresence>
+                                {isOpen && (
+                                    <>
+                                        {/* Backdrop to prevent clicks outside */}
+                                        <motion.div
+                                            className="fixed inset-0 bg-gray-500 opacity-50 z-40"
+                                            onClick={() => setOpen(false)}
+                                        />
+
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="fixed top-0 left-0 bottom-0 z-50 w-64 bg-white shadow-lg rounded-r-xl p-6 pt-8 border-r border-gray-300"
+                                        >
+                                            <ul className="space-y-6">
+                                                {authNavItems.map((route, idx) => {
+                                                    const { Icon } = route;
+
+                                                    return (
+                                                        <motion.li
+                                                            initial={{ scale: 0, opacity: 0 }}
+                                                            animate={{ scale: 1, opacity: 1 }}
+                                                            transition={{
+                                                                type: "spring",
+                                                                stiffness: 260,
+                                                                damping: 20,
+                                                                delay: 0.1 + idx / 10,
+                                                            }}
+                                                            key={route.title}
+                                                            className="w-full"
+                                                        >
+                                                            <Link
+                                                                onClick={() => setOpen((prev) => !prev)}
+                                                                className="flex items-center justify-between w-full p-4 rounded-lg bg-gradient-to-br from-blue-100 via-teal-100 to-pink-100 hover:from-blue-200 hover:to-pink-200 text-gray-800 hover:text-white transition-all duration-300"
+                                                                href={route.path}
+                                                            >
+                                                                <span className="flex gap-3 text-lg font-semibold">{route.title}</span>
+                                                                <Icon className="text-xl text-gray-700" />
+                                                            </Link>
+                                                        </motion.li>
+                                                    );
+                                                })}
+                                            </ul>
+                                        </motion.div>
+                                    </>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                    }  
                 </div>
 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">

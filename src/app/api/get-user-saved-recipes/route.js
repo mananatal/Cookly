@@ -22,7 +22,13 @@ export async function GET(req){
 
         await dbConnect();
 
-        const userSavedRecipes=await User.findOne({email:currUser.emailAddresses[0].emailAddress}).populate("savedRecipes").exec();
+        const userSavedRecipes=await User.findOne({email:currUser.emailAddresses[0].emailAddress})
+                                                            .populate({
+                                                                path:"savedRecipes",
+                                                                populate:{
+                                                                    path:"ratings"
+                                                                }
+                                                            }).exec();
 
         if(!userSavedRecipes){
             return NextResponse.json({

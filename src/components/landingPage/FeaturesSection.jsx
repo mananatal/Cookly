@@ -2,58 +2,58 @@ import { cn } from "@/lib/utils";
 
 import { 
     IconUserCircle, 
-    IconEdit, 
-    IconBrain, 
-    IconLayout, 
-    IconDashboard, 
-    IconSearch,
-    IconGlobe,
-    IconLock, 
+    IconBrain,
+    IconCamera,
+    IconFilter,
+    IconBookmark,
+    IconChartPie,
+    IconStar,
+    IconLayout
   } from '@tabler/icons-react';
   
 export function FeaturesSection() {
-    const features = [
-        {
-          title: "Clerk Authentication",
-          description: "Secure and seamless user authentication using Clerk for a robust login experience.",
-          icon: <IconUserCircle />,
-        },
-        {
-          title: "Rich Text Editor",
-          description: "Create and format content effortlessly with the intuitive TipTap editor.",
-          icon: <IconEdit />,
-        },
-        {
-            title: "Security & Privacy",
-            description: "Your data is protected with state-of-the-art security and privacy features.",
-            icon: <IconLock />,
-        },          
-        {
-          title: "Context-Aware Prompts",
-          description: "Send precise context with prompts using LangChain for smarter responses.",
-          icon: <IconBrain />,
-        },
-        {
-          title: "Modern UI/UX Design",
-          description: "Enjoy a sleek, responsive, and user-friendly interface designed for all devices.",
-          icon: <IconLayout />,
-        },
-        {
-          title: "Comprehensive Dashboard",
-          description: "Access detailed analytics and manage everything from a single intuitive dashboard.",
-          icon: <IconDashboard />,
-        },
-        {
-          title: "AI-Powered Search",
-          description: "Find what you need quickly with intelligent, context-aware search capabilities.",
-          icon: <IconSearch />,
-        },
-        {
-          title: "Multi-language Support",
-          description: "Support for multiple languages, allowing users to interact in their preferred language.",
-          icon: <IconGlobe  />,
-        },
-      ];
+  const features = [
+    {
+      title: "AI-Powered Recipe Generation",
+      description: "Generate custom recipes based on available ingredients and dietary preferences, ensuring a personalized cooking experience.",
+      icon: <IconBrain />,
+    },
+    {
+      title: "Clerk Authentication",
+      description: "Secure and seamless user authentication using Clerk for a robust login experience.",
+      icon: <IconUserCircle />,
+    },    
+    {
+      title: "Ingredient Detection via Photo Upload",
+      description: "Automatically detect available ingredients by uploading a photo.",
+      icon: <IconCamera />,
+    },
+    {
+      title: "Filter Recipes",
+      description: "Use various filters to find recipes that meet specific criteria.",
+      icon: <IconFilter />,
+    },
+    {
+      title: "Save Recipes",
+      description: "Save your favorite recipes for quick access later.",
+      icon: <IconBookmark />,
+    },
+    {
+      title: "Nutritional Information",
+      description: "Provides detailed nutritional information for each recipe to help users make informed choices.",
+      icon: <IconChartPie />,
+    },
+    {
+      title: "Rating Feature",
+      description: "Allows users to rate recipes uploaded by others, enhancing the community experience.",
+      icon: <IconStar />,
+    },
+    {
+      title: "Responsive Design",
+      description: "Ensures an intuitive and user-friendly interface across all devices, from mobile phones to desktops.",
+      icon: <IconLayout />,
+    },
+  ];
       
   return (
     <>
@@ -62,9 +62,10 @@ export function FeaturesSection() {
         Packed with thousands of features
         </h4>
 
-        <p className="text-sm lg:text-base  max-w-2xl  my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300">
-            Unlock the full potential of your PDFs with AI-powered features—from text generation and context-driven prompts to real-time insights and data processing.
+        <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300">
+          Discover a world of culinary possibilities with Cookly. From AI-generated recipes tailored to your preferences to ingredient detection through photos, our platform makes cooking easier and more personalized. Explore, create, and share delicious recipes while staying informed with detailed nutritional insights.
         </p>
+
     </div>
     (<div
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  relative z-10 py-10 max-w-7xl mx-auto">

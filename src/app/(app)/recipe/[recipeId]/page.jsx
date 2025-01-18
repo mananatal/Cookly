@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { CheckCircleIcon, Loader2 } from 'lucide-react';
 import Image from 'next/image';
@@ -17,6 +17,7 @@ function RecipePage() {
 
   const {toast}=useToast();
   const {user}=useUser();
+  const router=useRouter();
 
   const fetchRecipe = async () => {
     try {
@@ -27,6 +28,7 @@ function RecipePage() {
         console.error('Failed to fetch recipe details');
       }
     } catch (error) {
+      router.replace('/');
       console.error('Error fetching recipe:', error);
     }
   };

@@ -3,7 +3,7 @@ import React from 'react';
 function Skeleton() {
   return (
     <div className="flex flex-wrap gap-4 justify-center">
-      {Array.from({ length: 3 }).map((_, index) => (
+      {Array.from({ length: 6 }).map((_, index) => (
         <div
           key={index}
           className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] bg-white shadow-lg rounded-lg overflow-hidden animate-pulse"

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import RecipeContext from '@/context/RecipeContext';
 import { useToast } from '@/hooks/use-toast';
 import { chatSession } from '@/lib/gemini';
+import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
 
@@ -158,7 +159,18 @@ function CreateRecipe() {
             loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
           } text-white px-6 py-2 rounded-lg`}
         >
-          {loading ? 'Please Wait...' : 'Generate Recipe'}
+          {
+                loading?
+                (
+                    <>
+                        <Loader2 className='animate-spin '/> Generating...
+                    </>
+                )
+                :
+                (
+                    "Generate Recipe"
+                )
+            }
         </Button>
         
       </div>

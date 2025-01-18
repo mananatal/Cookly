@@ -50,7 +50,7 @@ function SavedRecipes() {
 
       {savedRecipes.length === 0 && !loading ? (
         <p className="text-gray-700 text-center text-lg">
-          You haven't created any recipes yet. Start creating and saving your delicious ideas!
+          You haven't saved any recipes yet. Start exploring other users' creations and save the ones that inspire your next meal!
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">

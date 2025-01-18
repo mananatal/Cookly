@@ -44,7 +44,8 @@ function SelectRecipe() {
         })
         
         if(typeof window !== 'undefined'){
-            localStorage.removeItem('generatedRecipes');
+            localStorage.clear();
+            setRecipe([]);
         }
 
         router.replace('/user-recipes');

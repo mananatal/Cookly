@@ -24,7 +24,8 @@ function CreateRecipe() {
 
 
   const handleGenerateRecipe = async () => {
-    setValidationErrorMessage("")
+    setValidationErrorMessage("");
+
     if (ingredients.length < 3) {
       toast({
         variant:"destructive",
@@ -62,9 +63,6 @@ function CreateRecipe() {
         console.error('Failed to parse JSON response:', text);
       }
       
-      if(validationErrorMessage){
-        return;
-      }
 
       const prompt = `
                 I have the following ingredients: ${JSON.stringify(ingredients)} ${dietaryPreferences[0]!="None"? `and dietary preferences: ${dietaryPreferences.join(',')}` : ''}. I want recipes for ${servingSize} plate servings. Please provide me with three different delicious and diverse recipes. The response should be in the following JSON format without any additional text, markdown, or code formatting (e.g., no backticks):

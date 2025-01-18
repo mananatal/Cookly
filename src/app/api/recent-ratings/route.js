@@ -45,11 +45,12 @@ export async function GET(req){
 
 
         if(avgRating.length > 0) {
+            const avg=Math.round((avgRating[0].averageRating)*10)/10;
             return NextResponse.json({
                 success:true,
                 message:"Ratings Found Successfully",
                 recentRatings,
-                avgRating:avgRating[0].averageRating,
+                avgRating:avg,
                 totalRatings
             },{status:200});
         }

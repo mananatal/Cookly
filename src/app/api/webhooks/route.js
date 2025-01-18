@@ -74,6 +74,7 @@ export async function POST(req) {
             name: fullName,
             email: primaryEmail.email_address,
             image: image_url,
+            savedRecipes:[]
         });
    
     } catch (error) {

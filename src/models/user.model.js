@@ -1,25 +1,22 @@
 import mongoose, { Schema }  from 'mongoose';
 
-
 const userSchema = new Schema({
   name:{
     type:String,
-    require:true
+    required:true
   },
   email: {
     type:String,
-    require:true,
     unique:true
   },
   image: {
     type:String,
-    require:true
+    sparse:true
   },
   savedRecipes:[
     {
         type:Schema.Types.ObjectId,
         ref:"Recipe",
-        unique:true
     }
   ]
 }, { timestamps: true });

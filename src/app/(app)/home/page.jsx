@@ -6,8 +6,6 @@ import RecipeCard from '@/components/common/RecipeCard';
 
 import Skeleton from '@/components/common/Skeleton';
 
-
-
 const dietaryOptions = [
   "None",
   "Vegetarian",
@@ -74,7 +72,7 @@ function HomePage() {
 
   return (
     <div className="px-6 py-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-indigo-600 text-center mb-8">
+      <h1 className="text-3xl font-bold text-indigo-600 text-center mb-8" >
         Explore Recipes
       </h1>
 

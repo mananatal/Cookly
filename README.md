@@ -5,7 +5,7 @@
 Cookly is an innovative recipe generation platform designed to transform your cooking experience. By leveraging the power of AI, Cookly allows users to generate personalized recipes tailored to their preferences, dietary restrictions, and available ingredients. Whether you're an amateur cook or a culinary expert, Cookly offers inspiration and guidance to create delightful dishes effortlessly.
 
 
-### Key Features of **Cookly**
+## Key Features of **Cookly**
 
 1. **AI-Powered Recipe Generation**: Generate custom recipes based on available ingredients and dietary preferences, ensuring a personalized cooking experience.
 
@@ -22,12 +22,59 @@ Cookly is an innovative recipe generation platform designed to transform your co
 7. **Responsive Design**: Ensures an intuitive and user-friendly interface across all devices, from mobile phones to desktops.
 
 
+## Approach Documentation
+
+### 1. Authentication
+- Implemented user authentication using **Clerk**.  
+- Used Clerk Webhooks to sync registered users with the database, ensuring seamless integration and consistent user data.
+
+### 2. Ingredient Recognition
+- Integrated the **Gemini API** to recognize ingredients from uploaded images.  
+- When a user uploads an image, the API extracts the content and populates the ingredient list automatically.
+
+### 3. Recipe Matching Algorithm
+- Used the **Gemini API** to generate recipes based on:  
+  - The provided ingredient list.  
+  - Dietary preferences specified by the user.  
+  - The desired number of servings.  
+- The API returns three diverse recipes, each with detailed instructions, ingredients, and nutritional information.
+
+### 4. Ingredient Validation
+- Validated the ingredient list by sending it to the Gemini API.  
+- If unusual or uncommon ingredients are detected, or if they conflict with dietary preferences, they are replaced with valid alternatives.  
+- Users are notified to recheck the updated ingredient list.
+
+### 5. Dietary Restrictions Handling
+- Provided users with predefined options for dietary preferences, including:  
+  - Vegetarian, Vegan, Gluten-Free, Lactose-Free, Keto, and Paleo.  
+- The generated recipes strictly adhere to the selected dietary restrictions.
+
+### 6. User Experience
+- Designed a clean, intuitive, and mobile-responsive interface.  
+- Added filters for cooking time, difficulty, and dietary preferences.  
+- Enabled users to save recipes from other users.
+- Integrated a rating system, allowing users to rate recipes.  
+- Included toast notifications to inform users of the success or failure of their actions.
+
+### 7. Error Handling
+- Displayed user-friendly error messages for invalid inputs or ingredients.  
+- Implemented loading states to ensure a smooth and seamless user experience.
+
+### 8. Hosting
+- Deployed the project on **Vercel** for free and reliable hosting.  
+- Ensured the application is accessible and performs well across devices.
+
+
+
 ## Technology Stack
 
 - **Next.js**: A React-based framework for building server-side rendered (SSR) and static web applications.
 - **MongoDB**: A NoSQL database for storing and managing application data.
 - **Gemini API**: A powerful API for integrating Google services and artificial intelligence capabilities.
 - **Clerk Authentication**: A service for adding user authentication and management features to your web application.
+
+## Live Demo
+[Smart Recipe Generator](https://cookly-lac.vercel.app/)
 
 
 

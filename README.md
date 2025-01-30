@@ -80,7 +80,7 @@ Cookly is an innovative recipe generation platform designed to transform your co
 
 ## Installation
 1. **Clone the Repository**:  
-   `https://github.com/mananatal/Cookly.git`
+   `git clone https://github.com/mananatal/Cookly.git`
 
 2. **Navigate to the Project Directory**:  
    `cd Cookly`

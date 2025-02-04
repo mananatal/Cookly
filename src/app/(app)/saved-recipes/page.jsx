@@ -1,4 +1,5 @@
 'use client'
+import Filter from '@/components/common/Filter';
 import RecipeCard from '@/components/common/RecipeCard';
 import Skeleton from '@/components/common/Skeleton';
 import { useUser } from '@clerk/nextjs';
@@ -7,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 
 function SavedRecipes() {
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [filteredRecipes,setFilteredRecipes]=useState([]);
   const [loading,setLoading]=useState(false);
   const {user}=useUser();
 
@@ -48,13 +50,15 @@ function SavedRecipes() {
         loading && <Skeleton/>
       }
 
+      <Filter recipes={savedRecipes} setFilteredRecipes={setFilteredRecipes}/>
+
       {savedRecipes.length === 0 && !loading ? (
         <p className="text-gray-700 text-center text-lg">
           You haven't saved any recipes yet. Start exploring other users' creations and save the ones that inspire your next meal!
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {savedRecipes.map((recipe) => (
+          {filteredRecipes.map((recipe) => (
             <RecipeCard
               key={recipe._id}
               recipe={recipe}

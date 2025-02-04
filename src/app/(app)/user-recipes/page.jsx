@@ -5,9 +5,12 @@ import axios from 'axios';
 import { useUser } from '@clerk/nextjs';
 import RecipeCard from '@/components/common/RecipeCard';
 import Skeleton from '@/components/common/Skeleton';
+import Filter from '@/components/common/Filter';
+
 
 function UserRecipes() {
   const [userRecipes, setUserRecipes] = useState([]);
+  const [filteredRecipes,setFilteredRecipes]=useState([]);
   const [loading,setLoading]=useState(false);
 
 
@@ -52,13 +55,17 @@ function UserRecipes() {
         loading && <Skeleton/>
       }
 
+      {/* Filter Component */}
+      <Filter recipes={userRecipes} setFilteredRecipes={setFilteredRecipes}/>
+      
+
       {userRecipes.length === 0 && !loading ? (
         <p className="text-gray-700 text-center text-lg">
           You haven't created any recipes yet. Start creating and saving your delicious ideas!
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {userRecipes.map((recipe) => (
+          {filteredRecipes.map((recipe) => (
             <RecipeCard
               key={recipe._id}
               recipe={recipe}

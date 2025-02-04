@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Label } from '@/components/ui/label';
 
 const dietaryOptions = [
@@ -11,6 +11,11 @@ const dietaryOptions = [
     "Paleo",
 ];
 function Filter({recipes,setFilteredRecipes}) {
+
+    if(!recipes){
+        return;
+    }
+
     const [filters, setFilters] = useState({
         cookingTime: '',
         difficulty: '',
@@ -38,10 +43,13 @@ function Filter({recipes,setFilteredRecipes}) {
                 (!difficulty || recipe.difficultyLevel === difficulty) &&
                 (!dietaryPreference || recipe.dietaryPreference.includes(dietaryPreference))
         );
-    });
+        });
 
-    // setFilteredRecipes((prev)=>[...prev,filteredRecipes]);
-    setFilteredRecipes(filteredRecipes);
+
+    useEffect(()=>{
+        setFilteredRecipes(filteredRecipes);
+    },[filters,recipes])
+    
 
     return (
         <div className="flex flex-wrap gap-4 justify-center mb-8">

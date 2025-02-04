@@ -6,34 +6,14 @@ import RecipeCard from '@/components/common/RecipeCard';
 
 import Skeleton from '@/components/common/Skeleton';
 import Filter from '@/components/common/Filter';
+import useGetRecipes from '@/hooks/useGetRecipes';
 
 
 function HomePage() {
-  const [recipes, setRecipes] = useState([]);
   const [filteredRecipes,setFilteredRecipes]=useState([]);
+  
+  const {recipes,loading}=useGetRecipes('/api/recipes');
 
-  const [loading,setLoading]=useState(false);
-
-  const fetchRecipes = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get('/api/recipes');
-        if (response.data.success) {
-          setRecipes(response.data.recipes);
-        } else {
-          console.error('Failed to fetch recipes');
-        }
-      } catch (error) {
-        console.error('Error fetching recipes:', error);
-      }
-      finally{
-        setLoading(false);
-      }
-  };
-
-  useEffect(() => {
-    fetchRecipes();
-  }, []);
 
   return (
     <div className="px-6 py-8 bg-gray-50 min-h-screen">
@@ -45,9 +25,8 @@ function HomePage() {
         loading && <Skeleton/>
       }
 
-       {/* Filters Section */}
-        <Filter recipes={recipes} setFilteredRecipes={setFilteredRecipes}/>
-
+      {/* Filters Section */}
+      <Filter recipes={recipes} setFilteredRecipes={setFilteredRecipes}/>
 
       {/* Recipes Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">

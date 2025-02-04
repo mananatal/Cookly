@@ -6,44 +6,19 @@ import { useUser } from '@clerk/nextjs';
 import RecipeCard from '@/components/common/RecipeCard';
 import Skeleton from '@/components/common/Skeleton';
 import Filter from '@/components/common/Filter';
+import useGetRecipes from '@/hooks/useGetRecipes';
 
 
 function UserRecipes() {
-  const [userRecipes, setUserRecipes] = useState([]);
   const [filteredRecipes,setFilteredRecipes]=useState([]);
-  const [loading,setLoading]=useState(false);
 
+  const {recipes:userRecipes,loading}=useGetRecipes('/api/user-recipes');
 
   const {user}=useUser();
 
-  const fetchUserRecipes = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get('/api/user-recipes');
-
-      if (response.data.success) {
-
-        setUserRecipes(response.data.userRecipes);
-      } else {
-        console.error('Failed to fetch user recipes');
-      }
-    } catch (error) {
-      console.error('Error fetching user recipes:', error);
-    }finally{
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
     if(!user){
       return;
     }
-    
-
-    fetchUserRecipes();
-  }, [user]);
-
-  
 
   return (
     <div className="px-6 py-8 bg-gray-50 min-h-screen">

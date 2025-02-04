@@ -2,44 +2,22 @@
 import Filter from '@/components/common/Filter';
 import RecipeCard from '@/components/common/RecipeCard';
 import Skeleton from '@/components/common/Skeleton';
+import useGetRecipes from '@/hooks/useGetRecipes';
 import { useUser } from '@clerk/nextjs';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 function SavedRecipes() {
-  const [savedRecipes, setSavedRecipes] = useState([]);
   const [filteredRecipes,setFilteredRecipes]=useState([]);
-  const [loading,setLoading]=useState(false);
+
+  const {recipes:savedRecipes,loading}=useGetRecipes('/api/get-user-saved-recipes');
+
   const {user}=useUser();
 
-  const fetchUserSavedRecipes = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get('/api/get-user-saved-recipes');
+  if(!user){
+    return;
+  }
 
-        if (response.data.success) {
-          setSavedRecipes(response.data.savedRecipes);
-        } else {
-          console.error('Failed to fetch user saved recipes');
-        }
-      } catch (error) {
-        console.error('Error fetching user saved recipes:', error);
-      }finally{
-        setLoading(false);
-      }
-    };
-
-  useEffect(() => {
-    if(!user){
-      return;
-    }
-    
-    fetchUserSavedRecipes();
-  }, [user]);
-
-
-
-  
   return (
     <div className="px-6 py-8 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-bold text-indigo-600 text-center mb-8">

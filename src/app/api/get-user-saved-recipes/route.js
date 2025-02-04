@@ -41,7 +41,7 @@ export async function GET(req){
         return NextResponse.json({
             success:true,
             message:"User Saved Recipes Fetched Successfully",
-            savedRecipes:userSavedRecipes.savedRecipes
+            recipes:userSavedRecipes.savedRecipes
         },{status:200});    
 
     } catch (error) {

@@ -33,7 +33,7 @@ export async function GET(req){
 
         return NextResponse.json({
             success:true,
-            userRecipes
+            recipes:userRecipes
         },{status:200});    
 
     } catch (error) {

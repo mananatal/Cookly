@@ -52,7 +52,7 @@ function SavedRecipes() {
 
       <Filter recipes={savedRecipes} setFilteredRecipes={setFilteredRecipes}/>
 
-      {savedRecipes.length === 0 && !loading ? (
+      {filteredRecipes.length === 0 && !loading ? (
         <p className="text-gray-700 text-center text-lg">
           You haven't saved any recipes yet. Start exploring other users' creations and save the ones that inspire your next meal!
         </p>

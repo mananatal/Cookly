@@ -59,7 +59,7 @@ function UserRecipes() {
       <Filter recipes={userRecipes} setFilteredRecipes={setFilteredRecipes}/>
       
 
-      {userRecipes.length === 0 && !loading ? (
+      {filteredRecipes.length === 0 && !loading ? (
         <p className="text-gray-700 text-center text-lg">
           You haven't created any recipes yet. Start creating and saving your delicious ideas!
         </p>

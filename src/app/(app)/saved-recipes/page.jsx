@@ -36,7 +36,7 @@ function SavedRecipes() {
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {filteredRecipes.map((recipe) => (
+          {filteredRecipes.slice(0).reverse().map((recipe) => (
             <RecipeCard
               key={recipe._id}
               recipe={recipe}

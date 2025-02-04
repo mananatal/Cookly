@@ -24,6 +24,7 @@ function RecipePage() {
       const response = await axios.get(`/api/recipe-info?recipeId=${recipeId}`);
       if (response.data.success) {
         setRecipe(response.data.recipeInfo);
+        setIsAlreadySaved(response.data.isAlreadySaved);
       } else {
         console.error('Failed to fetch recipe details');
       }
@@ -33,22 +34,8 @@ function RecipePage() {
     }
   };
 
-  const fetchRecipeSavedStaus=async()=>{
-    try {
-        const response = await axios.get(`/api/is-already-saved-user-recipe?recipeId=${recipeId}`);
-        if (response.data.success) {
-            setIsAlreadySaved(response.data.isAlreadySaved);
-        } else {
-          console.error('Failed to fetch is  recipe  already saved');
-        }
-      } catch (error) {
-        console.error('Failed to fetch is  recipe  already saved', error);
-      }
-  }
-
   useEffect(() => {
     fetchRecipe();
-    fetchRecipeSavedStaus();
   }, [recipeId]);
 
   if (!recipe) {

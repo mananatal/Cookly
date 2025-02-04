@@ -22,7 +22,12 @@ export async function GET(req){
 
         await dbConnect();
 
-        const recipeInfo=await Recipe.findById(recipeId).populate('createdBy').exec();
+        const recipeInfo=await Recipe.findById(recipeId)
+                                .populate({
+                                    path:"createdBy",
+                                    select:"-email"
+                                })
+                                .exec();
 
         if(!recipeInfo){
             return NextResponse.json({

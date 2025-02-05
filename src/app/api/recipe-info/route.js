@@ -27,7 +27,6 @@ export async function GET(req){
         const recipeInfo=await Recipe.findById(recipeId)
                                 .populate({
                                     path:"createdBy",
-                                    select:"-email"
                                 })
                                 .exec();
 

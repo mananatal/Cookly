@@ -7,18 +7,24 @@ import RecipeCard from '@/components/common/RecipeCard';
 import Skeleton from '@/components/common/Skeleton';
 import Filter from '@/components/common/Filter';
 import useGetRecipes from '@/hooks/useGetRecipes';
+import PaginationContainer from '@/components/common/PaginationContainer';
+import { Page_Size } from '@/const/data';
 
 
 function UserRecipes() {
   const [filteredRecipes,setFilteredRecipes]=useState([]);
-
+  const [currPage, setCurrPage] = useState(0);
+  
   const {recipes:userRecipes,loading}=useGetRecipes('/api/user-recipes');
 
   const {user}=useUser();
 
-    if(!user){
-      return;
-    }
+  if(!user){
+    return;
+  }
+
+  const start=currPage*Page_Size;
+  const end=start+Page_Size;
 
   return (
     <div className="px-6 py-8 bg-gray-50 min-h-screen">
@@ -40,7 +46,7 @@ function UserRecipes() {
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {filteredRecipes.map((recipe) => (
+          {filteredRecipes.slice(start,end).map((recipe) => (
             <RecipeCard
               key={recipe._id}
               recipe={recipe}
@@ -48,6 +54,12 @@ function UserRecipes() {
           ))}
         </div>
       )}
+
+      {/* Pagination */}
+      {
+       filteredRecipes.length && <PaginationContainer currPage={currPage} setCurrPage={setCurrPage} totalPage={Math.ceil(filteredRecipes.length/Page_Size)}/>
+      }
+
     </div>
   );
 }

@@ -1,7 +1,9 @@
 'use client'
 import Filter from '@/components/common/Filter';
+import PaginationContainer from '@/components/common/PaginationContainer';
 import RecipeCard from '@/components/common/RecipeCard';
 import Skeleton from '@/components/common/Skeleton';
+import { Page_Size } from '@/const/data';
 import useGetRecipes from '@/hooks/useGetRecipes';
 import { useUser } from '@clerk/nextjs';
 import axios from 'axios';
@@ -9,6 +11,7 @@ import React, { useEffect, useState } from 'react'
 
 function SavedRecipes() {
   const [filteredRecipes,setFilteredRecipes]=useState([]);
+  const [currPage, setCurrPage] = useState(0);
 
   const {recipes:savedRecipes,loading}=useGetRecipes('/api/get-user-saved-recipes');
 
@@ -17,6 +20,9 @@ function SavedRecipes() {
   if(!user){
     return;
   }
+
+  const start=currPage*Page_Size;
+  const end=start+Page_Size;
 
   return (
     <div className="px-6 py-8 bg-gray-50 min-h-screen">
@@ -36,7 +42,7 @@ function SavedRecipes() {
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {filteredRecipes.slice(0).reverse().map((recipe) => (
+          {filteredRecipes.slice(0).reverse().slice(start,end).map((recipe) => (
             <RecipeCard
               key={recipe._id}
               recipe={recipe}
@@ -44,6 +50,12 @@ function SavedRecipes() {
           ))}
         </div>
       )}
+
+      {/* Pagination */}
+      {
+       filteredRecipes.length && <PaginationContainer currPage={currPage} setCurrPage={setCurrPage} totalPage={Math.ceil(filteredRecipes.length/Page_Size)}/>
+      }
+
     </div>
   );
 }

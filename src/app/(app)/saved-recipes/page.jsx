@@ -34,7 +34,10 @@ function SavedRecipes() {
         loading && <Skeleton/>
       }
 
-      <Filter recipes={savedRecipes} setFilteredRecipes={setFilteredRecipes}/>
+      {/* Filter Section */}
+      {
+        !loading && <Filter recipes={savedRecipes} setFilteredRecipes={setFilteredRecipes}/>
+      }
 
       {filteredRecipes.length === 0 && !loading ? (
         <p className="text-gray-700 text-center text-lg">

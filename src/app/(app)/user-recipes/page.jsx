@@ -37,8 +37,9 @@ function UserRecipes() {
       }
 
       {/* Filter Component */}
-      <Filter recipes={userRecipes} setFilteredRecipes={setFilteredRecipes}/>
-      
+      {
+        !loading && <Filter recipes={userRecipes} setFilteredRecipes={setFilteredRecipes}/>
+      }
 
       {filteredRecipes.length === 0 && !loading ? (
         <p className="text-gray-700 text-center text-lg">

@@ -6,8 +6,7 @@ import Skeleton from '@/components/common/Skeleton';
 import { Page_Size } from '@/const/data';
 import useGetRecipes from '@/hooks/useGetRecipes';
 import { useUser } from '@clerk/nextjs';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 
 function SavedRecipes() {
   const [filteredRecipes,setFilteredRecipes]=useState([]);

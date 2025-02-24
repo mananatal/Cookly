@@ -8,6 +8,8 @@ import Filter from '@/components/common/Filter';
 import useGetRecipes from '@/hooks/useGetRecipes';
 import PaginationContainer from '@/components/common/PaginationContainer';
 import { Page_Size } from '@/const/data';
+import useOnline from '@/hooks/useOnline';
+import Offline from '@/components/common/Offline';
 
 
 function UserRecipes() {
@@ -15,11 +17,16 @@ function UserRecipes() {
   const [currPage, setCurrPage] = useState(0);
   
   const {recipes:userRecipes,loading}=useGetRecipes('/api/user-recipes');
+  const {isOnline}=useOnline();
 
   const {user}=useUser();
 
   if(!user){
     return;
+  }
+
+  if(!isOnline && !userRecipes){
+    return <Offline/>
   }
 
   const start=currPage*Page_Size;

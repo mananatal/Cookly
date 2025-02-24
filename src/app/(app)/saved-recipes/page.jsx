@@ -1,10 +1,12 @@
 'use client'
 import Filter from '@/components/common/Filter';
+import Offline from '@/components/common/Offline';
 import PaginationContainer from '@/components/common/PaginationContainer';
 import RecipeCard from '@/components/common/RecipeCard';
 import Skeleton from '@/components/common/Skeleton';
 import { Page_Size } from '@/const/data';
 import useGetRecipes from '@/hooks/useGetRecipes';
+import useOnline from '@/hooks/useOnline';
 import { useUser } from '@clerk/nextjs';
 import React, {useState } from 'react'
 
@@ -13,11 +15,16 @@ function SavedRecipes() {
   const [currPage, setCurrPage] = useState(0);
 
   const {recipes:savedRecipes,loading}=useGetRecipes('/api/get-user-saved-recipes');
+  const {isOnline}=useOnline();
 
   const {user}=useUser();
 
   if(!user){
     return;
+  }
+
+  if(!isOnline && !savedRecipes){
+    return <Offline/>
   }
 
   const start=currPage*Page_Size;

@@ -1,10 +1,12 @@
 'use client';
+import Offline from '@/components/common/Offline';
 import DietryPrefrences from '@/components/createRecipiePage/DietryRestrictions';
 import IngredientList from '@/components/createRecipiePage/IngredientList';
 import ServingSize from '@/components/createRecipiePage/ServingSize';
 import { Button } from '@/components/ui/button';
 import RecipeContext from '@/context/RecipeContext';
 import { useToast } from '@/hooks/use-toast';
+import useOnline from '@/hooks/useOnline';
 import { chatSession } from '@/lib/gemini';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -20,6 +22,8 @@ function CreateRecipe() {
   const { setRecipe } = useContext(RecipeContext);
   const router = useRouter();
   const {toast}=useToast();
+
+  const {isOnline}=useOnline();
 
 
 
@@ -116,10 +120,15 @@ function CreateRecipe() {
     }
   };
 
+ 
 
   useEffect(()=>{
     localStorage.clear();
   },[])
+
+  if(!isOnline){
+    return <Offline/>
+  }
 
   return (
     <div className="max-w-4xl bg-white shadow-lg mx-auto min-h-screen p-6 rounded-lg">

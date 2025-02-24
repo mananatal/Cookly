@@ -6,16 +6,22 @@ import Filter from '@/components/common/Filter';
 import useGetRecipes from '@/hooks/useGetRecipes';
 import PaginationContainer from '@/components/common/PaginationContainer';
 import { Page_Size } from '@/const/data';
+import useOnline from '@/hooks/useOnline';
+import Offline from '@/components/common/Offline';
 
 function HomePage() {
   const [filteredRecipes,setFilteredRecipes]=useState([]);
   const [currPage, setCurrPage] = useState(0);
   
   const {recipes,loading}=useGetRecipes('/api/recipes');
+  const {isOnline}=useOnline();
 
   const start=currPage*Page_Size;
   const end=start+Page_Size;
 
+  if(!isOnline && !recipes){
+    return <Offline/>
+  }
 
   return (
     <div className="px-6 py-8 bg-gray-50 min-h-screen">

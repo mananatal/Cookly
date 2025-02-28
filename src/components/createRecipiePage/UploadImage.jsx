@@ -15,6 +15,7 @@ import { useUser } from '@clerk/nextjs';
 import { GoogleGenerativeAI } from "@google/generative-ai"
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { getIngredientFromImagePrompt } from '@/helper/prompts';
 
 function UploadImage({ children, ingredients, setIngredients }) {
     const [open, setOpen] = useState(false);
@@ -83,18 +84,7 @@ function UploadImage({ children, ingredients, setIngredients }) {
                 },
             ]
 
-            const prompt = `You are an expert chef. Analyze this image and provide:
-            1. Get All the ingredients in the image
-            2. Validate whether the ingredients are correct return false only when more than 40% of the ingredients are incorrect
-            3. if not valid then provide the appropriate message for the user to correct it
-            
-            Respond in JSON format like this:
-            {
-                "imageIngredients": ["ingredient1", "ingredient2", ...],
-                "isValid": true/false,
-                "message":"message"
-            }`
-
+            const prompt = getIngredientFromImagePrompt();
             const result = await model.generateContent([prompt, ...imageParts]);
             const response = await result.response;
             const text = response.text().replace('```json', '').replace('```', '');
